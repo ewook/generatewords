@@ -4,6 +4,7 @@
 .vs/GenerateWords/v16/Server/sqlite3/storage.ide
 .vs/GenerateWords/v16/Server/sqlite3/storage.ide-shm
 .vs/GenerateWords/v16/Server/sqlite3/storage.ide-wal
+GenerateWords/obj/*
 GenerateWords/obj/Debug/GenerateWords.csprojAssemblyReference.cache
 GenerateWords/bin/Debug/GenerateWords.exe
 GenerateWords/bin/Debug/GenerateWords.exe.config
