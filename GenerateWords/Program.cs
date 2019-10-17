@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO.Compression;
 
 namespace GenerateWords
 {
@@ -73,12 +74,38 @@ namespace GenerateWords
                 if (lineCountPerFile == maxLineCountPerFile)
                 {
                     streamWriter.Flush();
-                    nameOfFileToWrite = string.Format("words_{0}.txt", fileWrittenCount);
-                    using (FileStream fileToWrite = new FileStream(nameOfFileToWrite, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read))
+                    nameOfFileToWrite = String.Format("words_{0}.txt", fileWrittenCount);
+                    using (FileStream fileToWrite = new FileStream(nameOfFileToWrite, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
                     {
                         memoryStream.Position = 0;
                         memoryStream.CopyTo(fileToWrite);
                     }
+
+                    // Compress the file
+                    string nameOfZipFileToWrite = String.Format("words_{0}.zip", fileWrittenCount);
+                    try
+                    {
+                        using (ZipArchive zip = ZipFile.Open(nameOfZipFileToWrite, ZipArchiveMode.Create))
+                        {
+                            zip.CreateEntryFromFile(nameOfFileToWrite, nameOfFileToWrite);
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("Error creating zip file: {0}. Reason: {1}", nameOfZipFileToWrite, ex.Message);
+                        Environment.Exit(-1);
+                    }
+
+                    // Delete the txt file that now exists in a zip-file.
+                    try
+                    {
+                        File.Delete(nameOfFileToWrite);
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("Error deleting file: {0}. Reason: {1}", nameOfFileToWrite, ex.Message);
+                    }
+
                     fileWrittenCount++;
                     lineCountPerFile = 0;
                     memoryStream = new MemoryStream();
