@@ -14,3 +14,6 @@ GenerateWords/obj/Debug/GenerateWords.exe
 GenerateWords/obj/Debug/GenerateWords.pdb
 GenerateWords/obj/Release/GenerateWords.csproj.FileListAbsolute.txt
 GenerateWords/obj/Release/GenerateWords.csprojAssemblyReference.cache
+GenerateWords/bin/Release/GenerateWords.exe
+GenerateWords/bin/Release/GenerateWords.exe.config
+GenerateWords/bin/Release/GenerateWords.pdb
